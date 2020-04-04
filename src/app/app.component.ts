@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'stefka-marinova-employees';
+  title = 'Team Calculator';
+  fileDataRaw: string;
+
+  getFileData(data: string) {
+    this.fileDataRaw = data;
+  }
 }
