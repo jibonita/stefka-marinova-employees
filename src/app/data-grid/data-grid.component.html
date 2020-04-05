@@ -1,5 +1,24 @@
-<table class="table">
+<table *ngIf="reportData?.length" class="table" id="report-data">
     <thead class="thead-dark">
+        <tr>
+            <th scope="col">Employee ID #1</th>
+            <th scope="col">Employee ID #2</th>
+            <th scope="col">Project ID</th>
+            <th scope="col">Days Worked</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataLine of reportData">
+            <td *ngFor="let cell of dataLine">{{cell}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf="isFileDataDisplayed" class="table" id="file-data">
+    <thead class="thead-dark">
+        <tr>
+            <th colspan="4">File Data</th>
+        </tr>
         <tr>
             <th scope="col">Employee ID</th>
             <th scope="col">Project ID</th>

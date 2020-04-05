@@ -21,7 +21,6 @@ export class FileLoadComponent implements OnInit {
 
       reader.onload = () => {
         const text = reader.result;
-        console.log(text);
         this.fileLoadEvent.emit(text);
       };
 
