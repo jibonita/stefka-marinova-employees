@@ -1,8 +1,12 @@
-<div style="text-align:center">
-  <h1>
+<div class="container">
+  <h1 class="text-center">
     Welcome to {{ title }}!
   </h1>
+
+  <h4>
+    <app-file-load (fileLoadEvent)="getFileData($event)"></app-file-load>
+  </h4>
+  <div>
+    <app-data-grid [fileDataRaw]="fileDataRaw"></app-data-grid>
+  </div>
 </div>
-<h4>
-  <app-file-load (fileLoadEvent)="getFileData($event)"></app-file-load>
-</h4>

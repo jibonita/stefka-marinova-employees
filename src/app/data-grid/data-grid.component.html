@@ -1,0 +1,15 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Project ID</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataLine of fileData">
+            <td *ngFor="let cell of dataLine">{{cell}}</td>
+        </tr>
+    </tbody>
+</table>

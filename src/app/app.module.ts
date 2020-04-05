@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FileLoadComponent } from './file-load/file-load.component';
+import { DataGridComponent } from './data-grid/data-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FileLoadComponent,
+    DataGridComponent,
   ],
   imports: [
     BrowserModule
