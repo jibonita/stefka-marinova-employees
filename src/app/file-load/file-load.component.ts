@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-file-load',
@@ -7,6 +7,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class FileLoadComponent implements OnInit {
 
+  @ViewChild('inputFile') inputFileVar: ElementRef;
   @Output() fileLoadEvent = new EventEmitter<string | ArrayBuffer>();
 
   constructor() { }
@@ -18,6 +19,7 @@ export class FileLoadComponent implements OnInit {
     if (event.target.files.length > 0) {
       let reader = new FileReader();
       const file = event.target.files[0];
+      this.inputFileVar.nativeElement.value = '';
 
       reader.onload = () => {
         const text = reader.result;
@@ -34,7 +36,6 @@ export class FileLoadComponent implements OnInit {
       };
 
       reader.readAsText(file);
-
     }
   }
 }
