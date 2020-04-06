@@ -40,7 +40,7 @@ export class DataGridComponent implements OnInit, OnChanges {
   }
 
   generateTeamsReport() {
-    const result = this.dataReportService.getLongestTeamPeriod(this.fileData);
+    const result = this.dataReportService.getCoupleWithLongestTeamworkPeriod(this.fileData);
     if (result) {
       this.reportData = result;
     } else {
