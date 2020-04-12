@@ -1,34 +1,41 @@
 <table *ngIf="reportData?.length" class="table" id="report-data">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Employee ID #1</th>
-            <th scope="col">Employee ID #2</th>
-            <th scope="col">Project ID</th>
-            <th scope="col">Days Worked</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let dataLine of reportData">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Employee ID #1</th>
+      <th scope="col">Employee ID #2</th>
+      <th scope="col">Project ID</th>
+      <th scope="col">Days Worked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataLine of reportData">
+      <td>{{dataline?.employee1}}</td>
+      <td>{{dataline?.employee2}}</td>
+      <td></td>
+      <!-- <td *ngFor="let cell of dataLine.projects">{{cell}}</td> -->
+      <td>{{dataline?.allWorkDays}}</td>
+    </tr>
+    <!-- <tr *ngFor="let dataLine of reportData">
             <td *ngFor="let cell of dataLine">{{cell}}</td>
-        </tr>
-    </tbody>
+        </tr> -->
+  </tbody>
 </table>
 
 <table *ngIf="isFileDataDisplayed" class="table" id="file-data">
-    <thead class="thead-dark">
-        <tr>
-            <th colspan="4">File Data</th>
-        </tr>
-        <tr>
-            <th scope="col">Employee ID</th>
-            <th scope="col">Project ID</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let dataLine of fileData">
-            <td *ngFor="let cell of dataLine">{{cell}}</td>
-        </tr>
-    </tbody>
+  <thead class="thead-dark">
+    <tr>
+      <th colspan="4">File Data</th>
+    </tr>
+    <tr>
+      <th scope="col">Employee ID</th>
+      <th scope="col">Project ID</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataLine of fileData">
+      <td *ngFor="let cell of dataLine">{{cell}}</td>
+    </tr>
+  </tbody>
 </table>

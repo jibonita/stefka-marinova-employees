@@ -1,6 +1,7 @@
 import { DataReportsService } from './data-reports.service';
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
+import { EmployeeProjectWorkRange } from '../core/models/employee-project-work-range.model';
 
 @Component({
   selector: 'app-data-grid',
@@ -26,20 +27,54 @@ export class DataGridComponent implements OnInit, OnChanges {
       this.generateTeamsReport();
     }
   }
+  /*
+convertFileRawDataToArray(rawData): string[][] {
+  return rawData.split('\n').map(line => {
+    return line.split(',').map((s, index) => {
+      if (index === 3 && s.trim() === 'NULL') {
+        const now = moment().format('YYYY-MM-DD');
+        return now;
+      }
+      return s.trim();
+    });
+  });
+}
+*/
 
-  convertFileRawDataToArray(rawData) {
+  convertFileRawDataToArray(rawData): string[][] {
     return rawData.split('\n').map(line => {
-      return line.split(',').map((s, index) => {
-        if (index === 3 && s.trim() === 'NULL') {
-          const now = moment().format('YYYY-MM-DD');
-          return now;
-        }
-        return s.trim();
-      });
+      if (line.trim().length) {
+        let lineAsObject: EmployeeProjectWorkRange = <EmployeeProjectWorkRange>{};
+        line.split(',').map((str, index) => {
+          str = str.trim();
+          switch (index) {
+            case 0:
+              lineAsObject.employee = +str;
+              break;
+            case 1:
+              lineAsObject.project = +str;
+              break;
+            case 2:
+              lineAsObject.dateFrom = moment(str);
+              break;
+            case 3:
+              if (str === 'NULL') {
+                str = moment();//.format('YYYY-MM-DD');
+              } else {
+                str = moment(str);
+              }
+              lineAsObject.dateTo = str;
+              break;
+            default:
+              break;
+          }
+        });
+        return lineAsObject;
+      }
     });
   }
 
-  generateTeamsReport() {
+  generateTeamsReport(): void {
     const result = this.dataReportService.getCoupleWithLongestTeamworkPeriod(this.fileData);
     if (result) {
       this.reportData = result;
