@@ -27,19 +27,6 @@ export class DataGridComponent implements OnInit, OnChanges {
       this.generateTeamsReport();
     }
   }
-  /*
-convertFileRawDataToArray(rawData): string[][] {
-  return rawData.split('\n').map(line => {
-    return line.split(',').map((s, index) => {
-      if (index === 3 && s.trim() === 'NULL') {
-        const now = moment().format('YYYY-MM-DD');
-        return now;
-      }
-      return s.trim();
-    });
-  });
-}
-*/
 
   convertFileRawDataToArray(rawData): string[][] {
     return rawData.split('\n').map(line => {
@@ -59,7 +46,7 @@ convertFileRawDataToArray(rawData): string[][] {
               break;
             case 3:
               if (str === 'NULL') {
-                str = moment();//.format('YYYY-MM-DD');
+                str = moment();
               } else {
                 str = moment(str);
               }

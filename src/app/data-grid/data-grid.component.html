@@ -9,16 +9,24 @@
   </thead>
   <tbody>
     <tr *ngFor="let dataLine of reportData">
-      <td>{{dataline?.employee1}}</td>
-      <td>{{dataline?.employee2}}</td>
+      <td>{{dataLine?.employee1}}</td>
+      <td>{{dataLine?.employee2}}</td>
       <td></td>
       <!-- <td *ngFor="let cell of dataLine.projects">{{cell}}</td> -->
-      <td>{{dataline?.allWorkDays}}</td>
+      <td>{{dataLine?.allWorkDays}}</td>
     </tr>
     <!-- <tr *ngFor="let dataLine of reportData">
             <td *ngFor="let cell of dataLine">{{cell}}</td>
         </tr> -->
   </tbody>
+</table>
+
+<table *ngIf="reportData?.length===0" class="table" id="report-data">
+  <thead class="thead-dark">
+    <tr>
+      <td>No employees worked together in a project at any time.</td>
+    </tr>
+  </thead>
 </table>
 
 <table *ngIf="isFileDataDisplayed" class="table" id="file-data">
@@ -35,7 +43,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let dataLine of fileData">
-      <td *ngFor="let cell of dataLine">{{cell}}</td>
+      <td>{{dataLine.employee}}</td>
+      <td>{{dataLine.project}}</td>
+      <td>{{dataLine.dateFrom | date:'shortDate'}}</td>
+      <td>{{dataLine.dateTo | date:'shortDate'}}</td>
     </tr>
   </tbody>
 </table>
