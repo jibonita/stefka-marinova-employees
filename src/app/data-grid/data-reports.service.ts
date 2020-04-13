@@ -116,7 +116,7 @@ export class DataReportsService {
     const maxWorkingDays = teamCouplesSortedArr[0][1].allWorkDays;
     let index = 0;
 
-    while (teamCouplesSortedArr[index][1].allWorkDays === maxWorkingDays && index < teamCouplesSortedArr.length) {
+    while (index < teamCouplesSortedArr.length && teamCouplesSortedArr[index][1].allWorkDays === maxWorkingDays) {
       const [e1, e2] = teamCouplesSortedArr[index][0].substr(1).split('e')
 
       maxTeams.push({
