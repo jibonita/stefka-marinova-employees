@@ -1,0 +1,12 @@
+.details {
+  visibility: collapse;
+  height: 0px;
+}
+
+.active~.details {
+  visibility: visible;
+}
+
+.active {
+  cursor: pointer;
+}

@@ -8,11 +8,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataLine of reportData">
+    <ng-container *ngFor="let dataLine of reportData;let idx = index">
+      <tr (click)="toggleClass(dataLine)" [ngClass]="{'active': dataLine.active}">
+        <td>{{dataLine?.employee1}}</td>
+        <td>{{dataLine?.employee2}}</td>
+        <td>{{dataLine?.strProjects }}</td>
+        <td>{{dataLine?.allWorkDays}}</td>
+      </tr>
+      <ng-container *ngIf="dataLine.projects.length > 1">
+        <tr *ngFor="let cell of dataLine.projects" class="details">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>{{cell[0]}}</td>
+          <td>{{cell[1]}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <!-- 
+       <tr *ngFor="let dataLine of reportData">
       <td>{{dataLine?.employee1}}</td>
       <td>{{dataLine?.employee2}}</td>
-      <td></td>
-      <!-- <td *ngFor="let cell of dataLine.projects">{{cell}}</td> -->
+      <td>{{ getProjects(dataline.projects) }}</td>
+     <td *ngFor="let cell of dataLine.projects">{{cell}}</td> - ->
       <td>{{dataLine?.allWorkDays}}</td>
     </tr>
     <!-- <tr *ngFor="let dataLine of reportData">

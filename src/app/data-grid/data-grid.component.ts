@@ -2,6 +2,7 @@ import { DataReportsService } from './data-reports.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
 import { EmployeeProjectWorkRange } from '../core/models/employee-project-work-range.model';
+import { TeamCoupleWorkdays } from '../core/models/team-couple-workdays';
 
 @Component({
   selector: 'app-data-grid',
@@ -11,8 +12,8 @@ import { EmployeeProjectWorkRange } from '../core/models/employee-project-work-r
 export class DataGridComponent implements OnInit, OnChanges {
   @Input() fileDataRaw: string;
   isFileDataDisplayed = false;
-  fileData: string[][];
-  reportData: string[][];
+  fileData: EmployeeProjectWorkRange[];
+  reportData: TeamCoupleWorkdays[];
 
   constructor(
     private dataReportService: DataReportsService,
@@ -28,10 +29,10 @@ export class DataGridComponent implements OnInit, OnChanges {
     }
   }
 
-  convertFileRawDataToArray(rawData): string[][] {
+  convertFileRawDataToArray(rawData): EmployeeProjectWorkRange[] {
     return rawData.split('\n').map(line => {
       if (line.trim().length) {
-        let lineAsObject: EmployeeProjectWorkRange = <EmployeeProjectWorkRange>{};
+        const lineAsObject: EmployeeProjectWorkRange = <EmployeeProjectWorkRange>{};
         line.split(',').map((str, index) => {
           str = str.trim();
           switch (index) {
@@ -63,10 +64,15 @@ export class DataGridComponent implements OnInit, OnChanges {
 
   generateTeamsReport(): void {
     const result = this.dataReportService.getCoupleWithLongestTeamworkPeriod(this.fileData);
+    console.log(result);
     if (result) {
       this.reportData = result;
     } else {
       this.isFileDataDisplayed = true;
     }
+  }
+
+  toggleClass(item) {
+    item.active = !item.active;
   }
 }

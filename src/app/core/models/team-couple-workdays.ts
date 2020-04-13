@@ -3,4 +3,6 @@ export interface TeamCoupleWorkdays {
     employee2: string;
     allWorkDays: number;
     projects: number[][];
+    strProjects: string;
+    active: boolean;
 }
