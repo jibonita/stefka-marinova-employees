@@ -14,9 +14,9 @@ export class DataReportsService {
   constructor() { }
 
   getCoupleWithLongestTeamworkPeriod(data: EmployeeProjectWorkRange[]): TeamCoupleWorkdays[] {
-    const projectGroups = this.groupByProjectId(data);
+    const projectGroups: Map<number, EmployeeProjectWorkRange[]> = this.groupByProjectId(data);
 
-    projectGroups.forEach((group: EmployeeProjectWorkRange, key: string) => {
+    projectGroups.forEach((group: EmployeeProjectWorkRange[], key: number) => {
       this.setMaxWorkingDaysTeamCouple(group);
     });
 
@@ -34,8 +34,8 @@ export class DataReportsService {
     }
   }
 
-  groupByProjectId(data): any {
-    const projectMembers = new Map();
+  groupByProjectId(data: EmployeeProjectWorkRange[]): Map<number, EmployeeProjectWorkRange[]> {
+    const projectMembers: Map<number, EmployeeProjectWorkRange[]> = new Map();
     data.forEach(member => {
       if (!projectMembers.has(member.project)) {
         projectMembers.set(member.project, []);
@@ -46,7 +46,7 @@ export class DataReportsService {
     return projectMembers;
   }
 
-  setMaxWorkingDaysTeamCouple(group): void {
+  setMaxWorkingDaysTeamCouple(group: EmployeeProjectWorkRange[]): void {
     for (let empOne = 0; empOne < group.length; empOne++) {
       for (let empTwo = empOne + 1; empTwo < group.length; empTwo++) {
         const employee1: EmployeeProjectWorkRange = group[empOne];
@@ -61,7 +61,7 @@ export class DataReportsService {
           const teamCouple = employee1.employee < employee2.employee ?
             [employee1.employee, employee2.employee] : [employee2.employee, employee1.employee];
 
-          const teamCoupleKey = teamCouple.map(e => `e${e}`).join('');
+          const teamCoupleKey: string = teamCouple.map(e => `e${e}`).join('');
 
           if (!this.teamCouples.has(teamCoupleKey)) {
             this.teamCouples.set(teamCoupleKey, {
@@ -77,47 +77,21 @@ export class DataReportsService {
     }
   }
 
-  getTeamCouplesPerProject(group): any[] {
-    const projectTeams = [];
-    for (let empOne = 0; empOne < group.length; empOne++) {
-      for (let empTwo = empOne + 1; empTwo < group.length; empTwo++) {
-        const employee1 = group[empOne];
-        const employee2 = group[empTwo];
-        const daysInTeam =
-          this.findIntersectionDays(
-            { s: moment(employee1[2]), e: moment(employee1[3]) },
-            { s: moment(employee2[2]), e: moment(employee2[3]) }
-          );
-
-        if (daysInTeam > 0) {
-          projectTeams.push([
-            employee1[0],
-            employee2[0],
-            employee1[1],
-            daysInTeam]
-          );
-        }
-      }
-    }
-
-    return projectTeams;
-  }
-
   getMaxWorkingDaysTeamData(): TeamCoupleWorkdays[] {
     const maxTeams: TeamCoupleWorkdays[] = [];
     if (!this.teamCouples.size) {
       return [];
     }
 
-    const teamCouplesSortedArr = [...this.teamCouples].sort((a, b) => {
+    const teamCouplesSortedArr: [string, TeamProjectsWorkdays][] = [...this.teamCouples].sort((a, b) => {
       return b[1].allWorkDays - a[1].allWorkDays;
     });
 
-    const maxWorkingDays = teamCouplesSortedArr[0][1].allWorkDays;
+    const maxWorkingDays: number = teamCouplesSortedArr[0][1].allWorkDays;
     let index = 0;
 
     while (index < teamCouplesSortedArr.length && teamCouplesSortedArr[index][1].allWorkDays === maxWorkingDays) {
-      const [e1, e2] = teamCouplesSortedArr[index][0].substr(1).split('e')
+      const [e1, e2]: string[] = teamCouplesSortedArr[index][0].substr(1).split('e');
 
       maxTeams.push({
         employee1: e1,

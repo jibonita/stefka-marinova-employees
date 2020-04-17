@@ -22,7 +22,7 @@ export class FileLoadComponent implements OnInit {
       this.inputFileVar.nativeElement.value = '';
 
       reader.onload = () => {
-        const text = reader.result;
+        const text: string | ArrayBuffer = reader.result;
         this.fileLoadEvent.emit(text);
       };
 
