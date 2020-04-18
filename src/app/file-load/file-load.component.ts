@@ -21,6 +21,12 @@ export class FileLoadComponent implements OnInit {
       const file = event.target.files[0];
       this.inputFileVar.nativeElement.value = '';
 
+      if (!['srt', 'txt', 'csv'].includes(file.name.split('.').reverse()[0])) {
+        console.error('Wrong text format');
+        alert('Wrong text format');
+        return;
+      }
+
       reader.onload = () => {
         const text: string | ArrayBuffer = reader.result;
         this.fileLoadEvent.emit(text);
