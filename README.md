@@ -18,8 +18,10 @@ EmpID, ProjectID, DateFrom, DateTo
 
 ...
 
-my sample file: look in assets ->
+my sample files: look in assets ->
 [data.csv](https://github.com/jibonita/stefka-marinova-employees/blob/master/src/assets/data.csv)
+and
+[data2.srt](https://github.com/jibonita/stefka-marinova-employees/blob/master/src/assets/data.srt)
 
 ## Development server
 
