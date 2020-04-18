@@ -78,7 +78,6 @@ export class DataReportsService {
   }
 
   getMaxWorkingDaysTeamData(): TeamCoupleWorkdays[] {
-    const maxTeams: TeamCoupleWorkdays[] = [];
     if (!this.teamCouples.size) {
       return [];
     }
@@ -88,6 +87,7 @@ export class DataReportsService {
     });
 
     const maxWorkingDays: number = teamCouplesSortedArr[0][1].allWorkDays;
+    const maxTeams: TeamCoupleWorkdays[] = [];
     let index = 0;
 
     while (index < teamCouplesSortedArr.length && teamCouplesSortedArr[index][1].allWorkDays === maxWorkingDays) {

@@ -29,7 +29,7 @@ export class DataGridComponent implements OnInit, OnChanges {
     }
   }
 
-  convertFileRawDataToArray(rawData): EmployeeProjectWorkRange[] {
+  convertFileRawDataToArray(rawData: string): EmployeeProjectWorkRange[] {
     return rawData.split('\n').map(line => {
       if (line.trim().length) {
         const lineAsObject: EmployeeProjectWorkRange = <EmployeeProjectWorkRange>{};
@@ -43,15 +43,14 @@ export class DataGridComponent implements OnInit, OnChanges {
               lineAsObject.project = +str;
               break;
             case 2:
-              lineAsObject.dateFrom = moment(str);
+              lineAsObject.dateFrom = this.getDateFormatted(str);
               break;
             case 3:
               if (str === 'NULL') {
-                str = moment();
+                lineAsObject.dateTo = moment();
               } else {
-                str = moment(str);
+                lineAsObject.dateTo = this.getDateFormatted(str);
               }
-              lineAsObject.dateTo = str;
               break;
             default:
               break;
@@ -62,9 +61,29 @@ export class DataGridComponent implements OnInit, OnChanges {
     });
   }
 
+  getDateFormatted(strDate: string) {
+    const date = moment(strDate);
+    if (date['_isValid']) {
+      return date;
+    } else {
+      const dateParts: string[] = strDate.split(/[\s.-]+/);
+      let format = '';
+      if (dateParts[0].length === 4) {
+        format = 'YYYY-MM-DD';
+      } else {
+        if (+dateParts[0] < 13) {
+          format = 'MM-DD-YYYY';
+        } else {
+          format = 'DD-MM-YYYY';
+        }
+      }
+      return moment(strDate, format);
+    }
+  }
+
   generateTeamsReport(): void {
     const result = this.dataReportService.getCoupleWithLongestTeamworkPeriod(this.fileData);
-    console.log(result);
+    // console.log(result);
     if (result) {
       this.reportData = result;
     } else {
