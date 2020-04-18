@@ -7,6 +7,10 @@
   visibility: visible;
 }
 
-.active {
+.details {
+  background: #efefef;
+}
+
+.pointer {
   cursor: pointer;
 }

@@ -9,7 +9,8 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let dataLine of reportData;let idx = index">
-      <tr (click)="toggleClass(dataLine)" [ngClass]="{'active': dataLine.active}">
+      <tr (click)="toggleClass(dataLine)"
+        [ngClass]="{'active': dataLine.active, 'pointer': dataLine.projects.length > 1}">
         <td>{{dataLine?.employee1}}</td>
         <td>{{dataLine?.employee2}}</td>
         <td>{{dataLine?.strProjects }}</td>
